@@ -1,5 +1,6 @@
 package cn.pureff.pmobe.factory;
 
+import cn.pureff.pmobe.dto.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,15 @@ public class FactoryController {
     @Autowired private ObjectMapper mapper;
 
     @PostMapping("/factory")
-    public String createOne(@Validated @RequestBody FactoryCreateRequest request) {
+    public Result<Factory> createOne(@Validated @RequestBody FactoryCreateRequest request) {
         var factory = mapper.convertValue(request, Factory.class);
 
         factoryService.createOne(factory);
 
-        return factoryService.findOneById(factory.getId()).toString();
+        factory = factoryService.findOneById(factory.getId());
+        log.info("");
+        return Result.ok(factory);
     }
+
+
 }
