@@ -3,12 +3,10 @@ package cn.pureff.pmobe.factory;
 import cn.pureff.pmobe.dto.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -29,5 +27,11 @@ public class FactoryController {
         return Result.ok(factory);
     }
 
+    @GetMapping("/factory/{id:[0-9a-zA-Z]{24}}")
+    public Result<Factory> getOne(@PathVariable ObjectId id) {
 
+        var factory = factoryService.findOneById(id);
+        log.info("");
+        return Result.ok(factory);
+    }
 }
