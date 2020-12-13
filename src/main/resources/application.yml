@@ -1,4 +1,5 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:20027
+      uri: mongodb://admin:admin@prime-u16.cjw:27017
+      database: pm
